@@ -1,30 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <title>FIGHT!</title>
 </head>
+
 <body>
     <h1>Food Fight!</h1>
-    <h2 id="banner1">Choose Your Fighter</h2>
-    <p id="fighterSelect">
-    <img class="sammy" id="pbj" src="assets/images/pbj.jpg">
-    <img class="sammy" id="turk" src="assets/images/turkClub.jpg">
-    <img class="sammy" id="philly" src="assets/images/philly.jpg">
-    <img class="sammy" id="reuben"src="assets/images/reuben.jpg">
-    </p>
-    <h2 id="banner2">Prepare to Meat your Death</h2>
+    <h2>Choose Your Fighter</h2>
+    <h3 id="playerFighter">Your Fighter: </h3>
+    <h4 id="playerHealth">HP: </h4>
+    <div id="fighterSelect">
+        <img class="sammy" id="pbj" src="assets/images/pbj.jpg">
+        <img class="sammy" id="turk" src="assets/images/turkClub.jpg">
+        <img class="sammy" id="philly" src="assets/images/philly.jpg">
+        <img class="sammy" id="reuben" src="assets/images/reuben.jpg">
+    </div>
+    <button id="attack">Attack</button>
+    <p id="remaining">Enemies Remaining: </p>
+    <p id="combatLog"></p>
+    <h2>Prepare to Meat your Death</h2>
+    <h3 id="enemyFighter">Your Challenger: </h3>
+    <h4 id="enemyHealth">HP: </h4>
+    <div id="enemies"></div>
+    <div id="reserves"></div>
 </body>
 <script>
-    chosen = false;
-    if(chosen == false)
-    {
-        $(".sammy").click(function(){
-            
-        })
+    var chosen = false;
+    var challenged = false;
+    var playerAttack = 0;
+    var enemyAttack = 0;
+    var playerHealth = 0;
+    var enemyHealth = 0;
+    var apInc = 0;
+    var defeatCount = 0;
+
+    var pbj = {
+        name: "Peanut Butter Jelly",
+        hp: 125,
+        AP: 12,
+        counterAP: 10,
+        npc: true,
     }
+    var turk = {
+        name: "Turkey Club",
+        hp: 140,
+        AP: 14,
+        counterAP: 15,
+        npc: true,
+    }
+    var philly = {
+        name: "Philly Cheesesteak",
+        hp: 100,
+        AP: 17,
+        counterAP: 24,
+        npc: true,
+    }
+    var reuben = {
+        name: "Reuben",
+        hp: 180,
+        AP: 4,
+        counterAP: 20,
+        npc: true,
+    }
+
+    $("#pbj").click(function () {
+        if (chosen == false) {
+
+            chosen = true;
+            pbj.npc = false;
+            $("#pbj").removeClass("sammy");
+            $(".sammy").appendTo("#reserves");
+            $("#playerFighter").html("Your Fighter: " + pbj.name);
+            $("#playerHealth").html("HP: " + pbj.hp);
+            playerAttack = pbj.AP;
+            apInc = pbj.AP;
+            playerHealth = pbj.hp;
+        }
+        else if (challenged == false && pbj.npc == true) {
+            challenged = true;
+            $("#pbj").appendTo("#enemies");
+            $("#enemyFighter").html("Enemy Fighter: " + pbj.name)
+            $("#enemyHealth").html("HP: " + pbj.hp)
+            enemyAttack = pbj.counterAP;
+            enemyHealth = pbj.hp;
+        }
+    })
+    $("#turk").click(function () {
+        if (chosen == false) {
+            chosen = true;
+            turk.npc = false;
+            $("#turk").removeClass("sammy");
+            $(".sammy").appendTo("#reserves");
+            $("#playerFighter").html("Your Fighter: " + turk.name);
+            $("#playerHealth").html("HP: " + turk.hp);
+            playerAttack = turk.AP;
+            apInc = turk.AP;
+            playerHealth = turk.hp;
+        }
+        else if (challenged == false && turk.npc == true) {
+            challenged = true;
+            turk.npc = false;
+            $("#turk").appendTo("#enemies");
+            $("#enemyFighter").html("Enemy Fighter: " + turk.name)
+            $("#enemyHealth").html("HP: " + turk.hp)
+            enemyAttack = turk.counterAP;
+            enemyHealth = turk.hp;
+        }
+    })
+    $("#philly").click(function () {
+        if (chosen == false) {
+            chosen = true;
+            philly.npc = false;
+            $("#philly").removeClass("sammy");
+            $(".sammy").appendTo("#reserves");
+            $("#playerFighter").html("Your Fighter: " + philly.name);
+            $("#playerHealth").html("HP: " + philly.hp);
+            playerAttack = philly.AP;
+            apInc = philly.AP;
+            playerHealth = philly.hp;
+        }
+        else if (challenged == false && philly.npc == true) {
+            challenged = true;
+            $("#philly").appendTo("#enemies");
+            $("#enemyFighter").html("Enemy Fighter: " + philly.name)
+            $("#enemyHealth").html("HP: " + philly.hp)
+            enemyAttack = philly.counterAP;
+            enemyHealth = philly.hp;
+        }
+    })
+    $("#reuben").click(function () {
+        if (chosen == false) {
+            chosen = true;
+            reuben.npc = false;
+            $("#reuben").removeClass("sammy");
+            $(".sammy").appendTo("#reserves");
+            $("#playerFighter").html("Your Fighter: " + reuben.name);
+            $("#playerHealth").html("HP: " + reuben.hp);
+            playerAttack = reuben.AP;
+            apInc = reuben.AP;            
+            playerHealth = reuben.hp;
+        }
+        else if (challenged == false && reuben.npc == true) {
+            challenged = true;
+            $("#reuben").appendTo("#enemies");
+            $("#enemyFighter").html("Enemy Fighter: " + reuben.name)
+            $("#enemyHealth").html("HP: " + reuben.hp)
+            enemyAttack = reuben.counterAP;
+            enemyHealth = reuben.hp;
+        }
+    })
+
+
+    $("#pbj").hover(function () {
+        if (chosen == false) {
+            $("#playerFighter").html("Your Fighter: " + pbj.name);
+            $("#playerHealth").html("HP: " + pbj.hp);
+        }
+        else if (challenged == false) {
+            $("#enemyFighter").html("Enemy Fighter: "+ pbj.name);
+            $("#enemyHealth").html("HP: " + pbj.hp);
+        }
+    }, function () {
+        if (chosen == false) {
+            $("#playerFighter").html("Your Fighter: ");
+            $("#playerHealth").html("HP: ");
+        }
+        else if (challenged == false) {
+            $("#enemyFighter").html("Enemy Fighter: ");
+            $("#enemyHealth").html("HP: ");
+        }
+    })
+    $("#turk").hover(function () {
+        if (chosen == false) {
+            $("#playerFighter").html("Your Fighter: " + turk.name);
+            $("#playerHealth").html("HP: " + turk.hp);
+        }
+        else if (challenged == false) {
+            $("#enemyFighter").html("Enemy Fighter: " + turk.name);
+            $("#enemyHealth").html("HP: " + turk.hp);
+        }
+    }, function () {
+        if (chosen == false) {
+            $("#playerFighter").html("Your Fighter: ");
+            $("#playerHealth").html("HP: ");
+        }
+        else if (challenged == false) {
+            $("#enemyFighter").html("Enemy Fighter: ");
+            $("#enemyHealth").html("HP: ");
+        }
+    })
+
+    $("#philly").hover(function () {
+        if (chosen == false) {
+            $("#playerFighter").html("Your Fighter: " + philly.name);
+            $("#playerHealth").html("HP: " + philly.hp);
+        }
+        else if (challenged == false) {
+            $("#enemyFighter").html("Enemy Fighter: " + philly.name);
+            $("#enemyHealth").html("HP: " + philly.hp);
+        }
+    }, function () {
+        if (chosen == false) {
+            $("#playerFighter").html("Your Fighter: ");
+            $("#playerHealth").html("HP: ");
+        }
+        else if (challenged == false) {
+            $("#enemyFighter").html("Enemy Fighter: ");
+            $("#enemyHealth").html("HP: ");
+        }
+    })
+    $("#reuben").hover(function () {
+        if (chosen == false) {
+            $("#playerFighter").html("Your Fighter: " + reuben.name);
+            $("#playerHealth").html("HP: " + reuben.hp);
+        }
+        else if (challenged == false) {
+            $("#enemyFighter").html("Enemy Fighter: " + reuben.name);
+            $("#enemyHealth").html("HP: " + reuben.hp);
+        }
+    }, function () {
+        if (chosen == false) {
+            $("#playerFighter").html("Your Fighter: ");
+            $("#playerHealth").html("HP: ");
+        }
+        else if (challenged == false) {
+            $("#enemyFighter").html("Enemy Fighter: ");
+            $("#enemyHealth").html("HP: ");
+        }
+    })
+
+    $("#attack").click(function () {
+
+        if (challenged == true)
+        {
+            enemyHealth -= playerAttack;
+            playerHealth -= enemyAttack;
+            $("#combatLog").text("You dealt " + playerAttack + " damage" + " Your enemy dealt " + enemyAttack);
+            $("#playerHealth").html("HP: " + playerHealth);
+            $("#enemyHealth").html("HP: " + enemyHealth);
+        }
+
+        if(enemyHealth <= 0 && defeatCount != 4)
+        {
+            $("#enemyHealth").html("HP: ");
+            $("#enemyFighter").html("Enemy Fighter: PICK ONE");
+            challenged = false;
+            $("#enemies").empty();
+            defeatCount++;
+        } 
+
+        if(playerHealth <= 0)
+        {
+            $("#remaining").text("You Lost!");
+            return; 
+        }
+        else{
+            $("#remaining").text("Enemies Remaining: " + ((defeatCount * -1) + 3));
+            playerAttack += apInc;
+        }
+
+        if(defeatCount == 4)
+        {
+            $("#remaining").text("You Won!");
+        }
+    })
 </script>
+
 </html>
