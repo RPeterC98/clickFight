@@ -2,3 +2,34 @@
 {
     color: green;
 }
+
+#lost
+{
+    color: red;
+}
+
+h1
+{
+    text-align: center;
+    background-color: cyan;
+    margin: -0.2em;
+    padding: 20px;
+}
+
+body{
+    background-image: url("../images/background.jpg");
+}
+
+h2{
+    background-color: black;
+    color:white;
+}
+h3, h4{
+    background-color: burlywood;
+}
+h4{
+    margin-right: 98.5%;
+}
+h3{
+    margin-right: 93%;
+}

@@ -246,7 +246,7 @@
             $("#enemyHealth").html("HP: " + enemyHealth);
         }
 
-        if(enemyHealth <= 0 && defeatCount != 4)
+        if(enemyHealth <= 0 && defeatCount != 4 && playerHealth != 0)
         {
             $("#enemyHealth").html("HP: ");
             $("#enemyFighter").html("Enemy Fighter: PICK ONE");
@@ -254,10 +254,15 @@
             $("#enemies").empty();
             defeatCount++;
         } 
+        if(defeatCount == 4)
+        {
+            $("#remaining").html("<p id='win'>You Won!</p>");
+        }
 
         if(playerHealth <= 0)
         {
-            $("#remaining").text("You Lost!");
+            challenged = false;
+            $("#remaining").html("<p id='lost'>You Lost! </p>");
             return; 
         }
         else{
@@ -265,10 +270,6 @@
             playerAttack += apInc;
         }
 
-        if(defeatCount == 4)
-        {
-            $("#remaining").text("You Won!");
-        }
     })
 </script>
 
